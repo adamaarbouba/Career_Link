@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Router;
+
+class Router
+{
+    private $routes = [];
+    private $StaticPath = "/MVC-Authentification-System/src/";
+
+
+    public function add($path, $handler)
+    {
+        $this->routes[$this->StaticPath . $path] = $handler;
+    }
+
+    public function dispatch($path)
+    {
+        if (array_key_exists($path, $this->routes)) {
+
+            $handler = $this->routes[$path];
+            call_user_func($handler);
+        } else {
+            echo "Page Not Found";
+        }
+    }
+}
