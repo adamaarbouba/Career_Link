@@ -6,9 +6,10 @@ use App\Controllers\AuthController;
 use App\Middleware\AuthMiddleware;
 
 
+$url = $_SERVER["REQUEST_URI"];
+$url = str_replace("/","","$url");
 
-$path = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-
+$path = parse_url($url, PHP_URL_PATH);
 
 $Router = new Router();
 
