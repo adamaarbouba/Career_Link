@@ -15,6 +15,7 @@ class ComposerStaticInitcc11e7b92a1f7cafe41f3723d3e56dae
             'App\\Models\\' => 11,
             'App\\Middleware\\' => 15,
             'App\\Controllers\\' => 16,
+            'App\\Config\\' => 11,
             'App\\' => 4,
         ),
     );
@@ -43,6 +44,10 @@ class ComposerStaticInitcc11e7b92a1f7cafe41f3723d3e56dae
         'App\\Controllers\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src/Controllers',
+        ),
+        'App\\Config\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/src/Config',
         ),
         'App\\' =>
         array (

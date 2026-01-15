@@ -9,7 +9,8 @@
             "App\\Repositories\\": "src/Repositories/",
             "App\\Services\\": "src/Services/",
             "App\\Router\\": "src/Router/",
-            "App\\Middleware\\": "src/Middleware/"
+            "App\\Middleware\\": "src/Middleware/",
+            "App\\Config\\": "src/Config/"
         }
     },
     "require": {}
