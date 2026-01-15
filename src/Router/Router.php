@@ -5,12 +5,11 @@ namespace App\Router;
 class Router
 {
     private $routes = [];
-    private $StaticPath = "/MVC-Authentification-System/src/";
 
 
     public function add($path, $handler)
     {
-        $this->routes[$this->StaticPath . $path] = $handler;
+        $this->routes[$path] = $handler;
     }
 
     public function dispatch($path)

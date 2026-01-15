@@ -6,37 +6,39 @@ use App\Controllers\AuthController;
 use App\Middleware\AuthMiddleware;
 
 
-$url = $_SERVER["REQUEST_URI"];
-$url = str_replace("/","","$url");
+$request = $_SERVER["REQUEST_URI"];
 
-$path = parse_url($url, PHP_URL_PATH);
+$script_name = '/MVC-Authentification-System/';
+
+$url = str_replace($script_name, '', $request);
+
+$url = parse_url($url, PHP_URL_PATH);
+
+$url = trim($url, '/');
 
 $Router = new Router();
 
-$Router->add("Views/auth/register", function () {
+$Router->add("register", function () {
+    echo "Hello";
     // $auth = new AuthController;
     // $auth->register();
 });
-
-$Router->add("Views/auth/register", function () {
-    // $auth = new AuthController;
-    // $auth->register();
-});
-$Router->add("Views/auth/login", function () {
+$Router->add("login", function () {
+    echo "Hello";
     // $auth = new AuthController;
     // $auth->login();
 });
-$Router->add("Views/admin/dashboard", function () {
+$Router->add("admin", function () {
     // $midWare = new AuthMiddleware;
     // $midWare->Check();
 });
-$Router->add("Views/company/dashboard", function () {
+$Router->add("company", function () {
     // $midWare = new AuthMiddleware;
     // $midWare->Check();
 });
-$Router->add("Views/candidate/dashboard", function () {
+$Router->add("candidate", function () {
     // $midWare = new AuthMiddleware;
     // $midWare->Check();
 });
 
-$Router->dispatch($path);
+$Router->dispatch($url);
