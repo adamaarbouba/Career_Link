@@ -1,70 +1,69 @@
-# SecureCore Authentication System
+# 🚀 CareerLink - Plateforme de Recrutement
 
 ## 📋 Description
-Système d'authentification multi-rôles basé sur une architecture MVC sans framework. Projet pédagogique pour comprendre les fondations d'une application web sécurisée et extensible.
+**CareerLink** est une plateforme de mise en relation entre candidats et recruteurs. Basée sur le noyau *SecureCore*, cette application étend l'architecture MVC pour inclure le **Repository Pattern**, garantissant une séparation stricte entre la logique métier et l'accès aux données.
 
 ---
 
-## 🎯 Objectif
-Créer un système d'authentification robuste et réutilisable avec architecture MVC propre, démontrant les avantages de la séparation des responsabilités par rapport au code procédural.
+## 🎯 Objectifs Pédagogiques
+- **Architecture MVC :** Séparation claire (Modèle - Vue - Contrôleur).
+- **Repository Pattern :** Isolation des requêtes SQL (PDO) hors des contrôleurs.
+- **Sécurité :** Protection XSS, Injection SQL, et hachage des mots de passe.
+- **Fonctionnalités Avancées :** AJAX, Upload de fichiers, et Soft Deletes.
 
 ---
 
-## 👥 Rôles
+## 👥 Rôles & Permissions
 
 | Rôle | Permissions |
 |------|-------------|
-| 👤 **Candidat** | Inscription, Connexion, Espace personnel |
-| 🛡️ **Admin** | Connexion, Dashboard admin, Gestion système |
-| 🟣 **Company** | Connexion, Dashboard entreprise, Gestion offres |
+| 👤 **Candidat** | Recherche d'offres (AJAX), Candidature, Upload de CV, Espace personnel |
+| 💼 **Recruteur** | Création d'offres, Gestion des candidatures reçues, Dashboard entreprise |
+| 🛡️ **Admin** | Gestion des catégories/tags, Archivage des offres (Soft Delete), Statistiques |
 
-> Chaque rôle possède ses propres routes, contrôleurs et vues isolées.
-
----
-
-## ⚙️ Fonctionnalités
-
-### 🔐 Authentification
-- Inscription avec validation
-- Connexion sécurisée
-- Déconnexion
-- Hashage mots de passe (bcrypt/argon2)
-- Gestion sessions PHP
-
-### 🔑 Gestion Rôles
-- Attribution automatique lors inscription
-- Redirection selon rôle après login
-- Contrôle d'accès basé sur rôles (RBAC)
-- Refus accès non autorisés
-
-### 🚫 Protection Routes
-**Publiques :** `/login`, `/register`  
-**Protégées :** `/candidate/dashboard`, `/admin/dashboard`, `/company/dashboard`  
-**Vérifications :** Utilisateur connecté + rôle autorisé
+> 🔒 **Note :** Chaque rôle possède ses propres routes et un accès cloisonné via Middleware.
 
 ---
 
-## 🏗️ Architecture
+## ⚙️ Fonctionnalités Clés
 
-### Structure
-```
-securecore/
-├── public/
-│   └── index.php              # Point d'entrée unique
+### 🏗️ Core (Hérité de SecureCore)
+- **Authentification :** Login, Register, Logout sécurisé.
+- **Sécurité :** Hashage (password_hash), Validation CSRF basique.
+- **Routing :** Système de routes dynamiques avec protection par rôle.
+
+### 💼 Module Offres (Nouveau)
+- **Gestion des Jobs :** CRUD complet pour les recruteurs.
+- **Catégories & Tags :** Association Many-to-Many.
+- **Soft Delete :** Les admins peuvent archiver une offre sans la supprimer de la BDD.
+
+### ⚡ Expérience Utilisateur
+- **Recherche AJAX :** Filtrage instantané des offres sans rechargement.
+- **Upload CV :** Gestion sécurisée des fichiers PDF via `UploadService`.
+
+---
+
+## 🏗️ Architecture du Projet
+
+Le projet suit une structure MVC stricte enrichie par des **Repositories** et des **Services**.
+
+```text
+careerlink/
 ├── src/
-│   ├── Controllers/           # Logique contrôle
-│   ├── Models/                # Logique métier + BDD
-│   ├── Views/                 # Affichage
-│   └── Router/                # Routage
-├── config/
-│   └── database.php           # Config BDD
-├── database/
-│   └── schema.sql             # Structure BDD
+│   ├── Config/                # Connexion BDD (Singleton)
+│   ├── Controllers/           # Logique de contrôle (Orchestration)
+│   ├── Middleware/            # Vérification des rôles (Auth)
+│   ├── Models/                # Entités (Objets simples, sans SQL)
+│   ├── Repositories/          # 📍 Logique d'accès aux données (SQL ici)
+│   ├── Services/              # Logique métier complexe (Upload, Hash, Session)
+│   ├── Router/                # Gestion des URL
+│   └── Views/                 # Templates HTML
+│   |    ├── admin/
+│   |    ├── recruiter/        # (Anciennement company)
+│   |    ├── candidate/
+│   |    └── layout/
+|   ├── public/
+│       ├── assets/            # CSS, JS, Images
+│       └── uploads/           # CV Uploads
+├── composer.json              # Autoloading
 └── README.md
-
-```
-
-## run autoloading command : 
-
-`composer dump-autoload`
- 
