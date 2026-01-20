@@ -66,4 +66,5 @@ careerlink/
 │       ├── assets/            # CSS, JS, Images
 │       └── uploads/           # CV Uploads
 ├── composer.json              # Autoloading
+├── index.php                  # Hub router
 └── README.md
