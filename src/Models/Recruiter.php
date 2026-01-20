@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Company extends User {
+class Recruiter extends User {
 
     public function __construct($id, $name, $email) {
         parent::__construct($id, $name, $email);
