@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Router;
 
 class Router
@@ -18,7 +19,7 @@ class Router
             $handler = $this->routes[$path];
             call_user_func($handler);
         } else {
-            echo "Page Not Found";
+            header("Location: home");
         }
     }
 }
