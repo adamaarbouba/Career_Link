@@ -1,20 +1,71 @@
-create DATABASE mvc;
+create DATABASE Career;
 
-use MVC;
-
-create table users(
-    id int PRIMARY KEY ,
-    name VARCHAR(50),
-    email VARCHAR(100) UNIQUE,
-    password VARCHAR(225),
-    role_id int,
-    FOREIGN KEY (role_id) REFERENCES roles(id)
-);
+use Career;
 
 CREATE Table Roles(
     id int PRIMARY key,
     title enum('admin' , 'recruiter' , 'candidate')
-)
+);
+create table users(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(255),
+    role_id int,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+);
+create table recruteurs(
+    id int PRIMARY key,
+    Company_name VARCHAR(50),
+    description TEXT,
+    Company_image VARCHAR(100),
+    Foreign Key (id) REFERENCES users(id) ON DELETE CASCADE
+);
+create table admins(
+    id int PRIMARY KEY,
+    Foreign Key (id) REFERENCES users(id) ON DELETE CASCADE
+);
+CREATE Table candidates(
+    id int PRIMARY KEY,
+    Foreign Key (id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE table tags(
+    id INT PRIMARY key AUTO_INCREMENT,
+    title VARCHAR(50)
+);
+CREATE table candidates_tags(
+    tag_id int,
+    candidate_id int,
+    Foreign Key (tag_id) REFERENCES tags(id),
+    Foreign Key (candidate_id) REFERENCES candidates(id) ON DELETE CASCADE,
+    PRIMARY KEY (tag_id , candidate_id)
+);
+CREATE Table Categories(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50)
+);
+CREATE TABLE offers (
+    id int PRIMARY key AUTO_INCREMENT,
+    title VARCHAR(50),
+    description TEXT,
+    salary DECIMAL(8,2),
+    Category_id int,
+    Foreign Key (Category_id) REFERENCES Categories(id) on DELETE CASCADE
+);
+
+create Table candidates_offers(
+    cv VARCHAR(100),
+    statut VARCHAR(50),
+    motif VARCHAR(100),
+    offer_id int,
+    candidate_id int,
+    Foreign Key (offer_id) REFERENCES offers(id),
+    Foreign Key (candidate_id) REFERENCES candidates(id),
+    PRIMARY KEY(offer_id , candidate_id)
+);
+
+
 
 INSERT INTO roles (id, title) VALUES
 (1, 'admin'),
