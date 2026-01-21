@@ -68,7 +68,6 @@ class AuthService
           };
 
           $data = ['name' => $obj->name , 'email' => $obj->email , 'password' => $passwordHash , 'role_id' => $role_id];
-          
           $lastId = $this->userRepo->create($data);
           $obj->id($lastId);
           return $obj; 

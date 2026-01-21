@@ -69,7 +69,7 @@ class AuthController
         $roleEntity = "App\Models\\" .ucfirst($role);
         $obj = new $roleEntity($name , $email ,$password);
         $obj->setRole($role);
-
+        
         $user = $this->authService->Register($obj);
         
         $_SESSION['user'] = [

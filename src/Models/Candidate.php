@@ -55,5 +55,7 @@ class Candidate extends User {
     {
         return $this->$name;
     }
-    public fun
+    public function __set($name , $value){
+        $this->$name = $value;
+    }
 }
