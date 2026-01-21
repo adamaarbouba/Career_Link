@@ -1,6 +1,7 @@
 {
-    "name": "/Career_link/",
+    "name": "vi/career_link",
     "description": "Career_link",
+    "type": "project",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
