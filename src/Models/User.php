@@ -14,5 +14,5 @@ abstract class User {
         $this->password = $password;
     }
 
-    abstract public function setRole($role);
+    abstract public function setRole(Role $role);
 }

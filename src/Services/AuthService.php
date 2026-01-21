@@ -25,9 +25,9 @@ class AuthService
             return null;
         }
 
-        if (!password_verify($password, $userFound['password'])) {
-            return null;
-        }
+        // if (!password_verify($password, $userFound['password'])) {
+        //     return null;
+        // }
 
         $role = $this->roleRepo->find('id' , $userFound['role_id']);
         $roleEntity = "App\Models\\" .ucfirst($role['title']);

@@ -76,3 +76,8 @@ INSERT INTO users (id, name, email, password, role_id) VALUES
 (1, 'Admin User', 'admin@example.com', '$2y$10$adminhashedpassword', 1),
 (2, 'recruiter User', 'recruiter@example.com', '$2y$10$recruiterhashedpassword', 2),
 (3, 'Candidate User', 'candidate@example.com', '$2y$10$candidatehashedpassword', 3);
+
+INSERT INTO recruteurs (id, Company_name, description, Company_image) VALUES
+(1, 'TechCorp', 'Software development company', 'techcorp.png'),
+(2, 'DesignHub', 'Creative design agency', 'designhub.png'),
+(3, 'MarketingPro', 'Digital marketing solutions', 'marketingpro.png');
