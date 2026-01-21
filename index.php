@@ -45,6 +45,10 @@ $Router->add("candidate/dashboard", function () {
 $Router->add("home", function () {
     include_once "src/Views/home.php";
 });
+$Router->add("recruiter/offer", function () {
+    include_once "src/Views/recruiter/createJobOffer.php";
+});
+$Router->add("saveJob", function () {});
 $Router->add("authLogin", function () {});
 $Router->add("authCandidate", function () {});
 $Router->add("authRecruiter", function () {});
