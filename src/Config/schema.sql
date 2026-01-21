@@ -81,3 +81,28 @@ INSERT INTO recruteurs (id, Company_name, description, Company_image) VALUES
 (1, 'TechCorp', 'Software development company', 'techcorp.png'),
 (2, 'DesignHub', 'Creative design agency', 'designhub.png'),
 (3, 'MarketingPro', 'Digital marketing solutions', 'marketingpro.png');
+
+
+-- Insert categories
+INSERT INTO Categories (title) VALUES
+('Web Development'),
+('Mobile Development'),
+('Data Science');
+
+-- Insert offers (linked to categories)
+INSERT INTO offers (title, description, salary, Category_id) VALUES
+('Junior PHP Developer', 
+ 'Work on backend features using PHP and MySQL.', 
+ 4500.00, 
+ 1),
+
+('Android Developer', 
+ 'Develop and maintain Android applications.', 
+ 6000.00, 
+ 2),
+
+('Data Analyst', 
+ 'Analyze data and create reports for business decisions.', 
+ 7000.00, 
+ 3);
+    

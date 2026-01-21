@@ -27,8 +27,8 @@ $Router->add("admin", function () {
     include_once "src/Views/admin/dashboard.php";
 });
 $Router->add("recruiter", function () {
-
-    include_once "src/Views/recruiter/dashboard.php";
+    $controller = new \App\Controllers\OfferController();
+    $controller->index();  
 });
 $Router->add("candidate", function () {
 

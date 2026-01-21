@@ -22,9 +22,9 @@ class RecruiterController
         $this->recruiterRepo = new RecruiterRepository();
     }
 
-    /**
-     * Dashboard recruteur
-     */
+    
+     //Dashboard recruteur
+     
     public function dashboard()
     {
         session_start();
@@ -46,7 +46,7 @@ class RecruiterController
             die('Recruiter not found');
         }
 
-        // Create Recruiter object (constructor inherited from User)
+        // Create Recruiter object 
         $recruiter = new Recruiter(
             $userData['name'],
             $userData['email'],
@@ -54,9 +54,9 @@ class RecruiterController
         );
 
         $role = new Role('recruiter');
-
-        $recruiter->id = $userData['id'];
         $recruiter->setRole($role);
+        
+        $recruiter->id = $userData['id'];
         $recruiter->company_name  = $recruiterData['company_name'];
         $recruiter->description   = $recruiterData['description'];
         $recruiter->company_image = $recruiterData['company_image'];
@@ -64,9 +64,9 @@ class RecruiterController
         require_once __DIR__ . '/../Views/recruiter/dashboard.php';
     }
 
-    /**
-     * Update recruiter profile
-     */
+    
+     //Update recruiter profile
+     
     public function update()
     {
         session_start();
