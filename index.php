@@ -23,28 +23,26 @@ $Router->add("register", function () {
 $Router->add("login", function () {
     include_once "src/Views/auth/login.php";
 });
-$Router->add("admin", function () {
+$Router->add("admin/dashboard", function () {
     include_once "src/Views/admin/dashboard.php";
 });
-$Router->add("recruiter", function () {
+$Router->add("recruiter/dashboard", function () {
 
     include_once "src/Views/recruiter/dashboard.php";
 });
-$Router->add("candidate", function () {
+$Router->add("candidate/dashboard", function () {
 
     include_once "src/Views/candidate/dashboard.php";
 });
 $Router->add("home", function () {
     include_once "src/Views/home.php";
 });
-$Router->add("authLogin", function () {
-    
+$Router->add("recruiter/offer", function () {
+    include_once "src/Views/recruiter/createJobOffer.php";
 });
-$Router->add("authCandidate", function () {
-    
-});
-$Router->add("authRecruiter", function () {
-    
-});
+$Router->add("saveJob", function () {});
+$Router->add("authLogin", function () {});
+$Router->add("authCandidate", function () {});
+$Router->add("authRecruiter", function () {});
 
 $Router->dispatch($url);

@@ -11,7 +11,7 @@ class AuthController
     public function __construct()
     {
         $this->authService = new AuthService();
-        $this->basePath = 'MVC-Authentification-System';
+        $this->basePath = 'career';
     }
 
     public function login()

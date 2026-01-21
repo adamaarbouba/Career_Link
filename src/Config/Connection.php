@@ -7,7 +7,7 @@ class Connection{
    private static $conn;
    private static $host = "localhost";
    private static $user = "root";
-   private static $db = "mvc";
+   private static $db = "career";
    private static $pass = "";
    
    private function __clone(){}
