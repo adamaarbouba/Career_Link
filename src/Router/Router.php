@@ -19,7 +19,7 @@ class Router
             $handler = $this->routes[$path];
             call_user_func($handler);
         } else {
-            header("Location: home");
+            header("Location: /Career_Link/home");
         }
     }
 }
