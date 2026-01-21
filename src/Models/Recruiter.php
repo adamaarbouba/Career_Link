@@ -1,25 +1,26 @@
 <?php
-
 namespace App\Models;
 
-class Recruiter extends User {
+class Recruiter extends User
+{
+    protected $company_name;
+    protected $description;
+    protected $company_image;
 
-    public function __construct( $name, $email, $password) {
-        parent::__construct( $name, $email ,$password);
-    }
-
-    public function setRole($role) {
+    public function setRole(Role $role)
+    {
         $this->role = $role;
     }
 
-    public function __get($name)
+    public function __get($property)
     {
-        return $this->$name;
-    }
-    
-    public function __set($name, $value)
-    {
-        $this->$name = $value;
+        return $this->$property;
     }
 
+
+    public function __set($property, $value)
+    {
+        
+        $this->$property = $value;
+    }
 }
