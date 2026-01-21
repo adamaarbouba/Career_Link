@@ -24,6 +24,12 @@ $Router->add("register", function () {
 $Router->add("login", function () {
     include_once "src/Views/auth/login.php";
 });
+$router->add("login/post", fn() => $auth->login());
+$router->add("register/post", fn() => $auth->register());
+$router->add("admin/dashboard", function() {
+    include "src/Views/admin/dashboard.php";
+});
+
 $Router->add("admin", function () {
 
 });

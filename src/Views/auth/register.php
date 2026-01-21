@@ -138,7 +138,7 @@
         <p class="text-slate-400 text-sm mt-2">Start your journey today</p>
       </div>
 
-      <form action="Authregister" method="POST" class="form-container space-y-5">
+      <form action="/Career_Link/register/post" method="POST" class="form-container space-y-5">
 
         <div>
           <label for="name" class="block text-sm font-medium text-slate-200 mb-2">Full Name</label>

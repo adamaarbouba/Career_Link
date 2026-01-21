@@ -11,7 +11,7 @@ class AuthController
     public function __construct()
     {
         $this->authService = new AuthService();
-        $this->basePath = 'MVC-Authentification-System';
+        $this->basePath = '/Career_Link';
     }
 
     public function login()
@@ -42,17 +42,9 @@ class AuthController
             'name' => $user->name,
             'role' => $user->role
         ];
-        $rolePaths = [
-            'admin' => "$this->basePath/admin/dashboard",
-            'company' => "$this->basePath/company/dashboard",
-            'candidate' => "$this->basePath/candidate/dashboard"
-        ];
-        if(isset($rolePaths[$user->role])){
-            header('Location: '.$rolePaths[$user->role]);
-            exit;
-        }
-        header('Location: '.$this->basePath .'/');
-        exit;
+       $dashboardPath = $this->basePath . '/' . $user->role . '/dashboard';
+       header('Location: ' . $dashboardPath);
+    exit;
     }
     public function register(){
         $errors = [];
