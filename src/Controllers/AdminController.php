@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Controllers\AdminController;
+namespace App\Controllers;
 
 class AdminController{
-
+   
 }

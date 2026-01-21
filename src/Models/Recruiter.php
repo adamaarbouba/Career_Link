@@ -4,8 +4,8 @@ namespace App\Models;
 
 class Recruiter extends User {
 
-    public function __construct($id, $name, $email) {
-        parent::__construct($id, $name, $email);
+    public function __construct( $name, $email, $password) {
+        parent::__construct( $name, $email ,$password);
     }
 
     public function setRole($role) {

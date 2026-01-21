@@ -15,20 +15,20 @@ class Candidate extends User
     {
         $this->role = $role;
     }
-    public function __get($name)
-    {
-        return $this->$name;
-    }
-
-    public function __set($name, $value)
-    {
-        $this->$name = $value;
-    }
     public function getCvUrl()
     {
         if ($this->cv) {
             return '/uploads/cvs/' . $this->cv;
         }
         return '';
+    }
+
+    public function __get($name)
+    {
+        return $this->$name;
+    }
+    public function __set($name, $value)
+    {
+        $this->$name = $value;
     }
 }

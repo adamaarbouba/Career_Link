@@ -99,7 +99,7 @@
   <div class="w-full max-w-lg">
     <h1 class="text-3xl font-bold text-center text-slate-100 mb-8">Join CareerLink</h1>
 
-    <form action="Authregister" method="POST" enctype="multipart/form-data" class="form-container" id="registerForm">
+    <form action="/Career_Link/register/post" method="POST" enctype="multipart/form-data" class="form-container" id="registerForm">
 
       <label class="block text-sm font-medium text-slate-300 mb-3">I am a...</label>
       <div class="grid grid-cols-2 gap-3 mb-6">
