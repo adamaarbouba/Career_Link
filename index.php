@@ -20,24 +20,18 @@ $Router = new Router();
 
 $Router->add("register", function () {
     include_once "src/Views/auth/register.php";
-    echo "Hello";
-    // $auth = new AuthController;
-    // $auth->register();
 });
 $Router->add("login", function () {
     include_once "src/Views/auth/login.php";
 });
 $Router->add("admin", function () {
-    // $midWare = new AuthMiddleware;
-    // $midWare->Check();
+
 });
 $Router->add("recruiter", function () {
-    // $midWare = new AuthMiddleware;
-    // $midWare->Check();
+
 });
 $Router->add("candidate", function () {
-    // $midWare = new AuthMiddleware;
-    // $midWare->Check();
+
 });
 $Router->add("home", function () {
     include_once "src/Views/home.php";
