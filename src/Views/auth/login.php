@@ -120,7 +120,7 @@
         <p class="text-slate-400 text-sm mt-2">Sign in to <span class="font-semibold text-slate-200">Career<span class="text-emerald-400">Link</span></span></p>
       </div>
 
-      <form action="Authlogin" method="POST" class="form-container space-y-6">
+      <form action="/Career_Link/login/post" method="POST" class="form-container space-y-6">
         <div>
           <label for="email" class="block text-sm font-medium text-slate-200 mb-2">Email Address</label>
           <input

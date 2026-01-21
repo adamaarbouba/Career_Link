@@ -20,11 +20,11 @@ class AuthService
     public function login(string $email, string $password)
     {
         $userFound = $this->userRepo->find('email', $email);
-
+      
         if (!$userFound) {
             return null;
         }
-
+        
         if (!password_verify($password, $userFound['password'])) {
             return null;
         }
@@ -59,7 +59,7 @@ class AuthService
             case 'admin':
                 $role_id = 1;
                 break;
-            case 'company':
+            case 'recruiter':
                 $role_id = 2;
                 break;
             case 'candidate':

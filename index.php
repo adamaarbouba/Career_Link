@@ -17,6 +17,7 @@ $url = parse_url($url, PHP_URL_PATH);
 $url = trim($url, '/');
 
 $Router = new Router();
+$auth = new AuthController();
 
 $Router->add("register", function () {
     include_once "src/Views/auth/register.php";
@@ -24,23 +25,26 @@ $Router->add("register", function () {
 $Router->add("login", function () {
     include_once "src/Views/auth/login.php";
 });
-$router->add("login/post", fn() => $auth->login());
-$router->add("register/post", fn() => $auth->register());
-$router->add("admin/dashboard", function() {
+$Router->add("login/post",function()use ($auth){
+   $auth->login();
+});
+$Router->add("register/post", function() use ($auth){
+  $auth->register(); 
+} );
+
+$Router->add("admin/dashboard", function() {
     include "src/Views/admin/dashboard.php";
 });
-
-$Router->add("admin", function () {
-
+$Router->add("recruiter/dashboard", function() {
+    include "src/Views/recruiter/dashboard.php";
 });
-$Router->add("recruiter", function () {
-
+$Router->add("candidate/dashboard", function() {
+    include "src/Views/candidate/dashboard.php";
 });
-$Router->add("candidate", function () {
 
-});
 $Router->add("home", function () {
     include_once "src/Views/home.php";
 });
+
 
 $Router->dispatch($url);

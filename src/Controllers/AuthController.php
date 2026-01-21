@@ -20,7 +20,7 @@ class AuthController
        
         $email = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
-
+      
         if (empty($email) || empty($password)) {
             $errors[] = 'Email and password are required';
             $_SESSION['errors'] = $errors;
@@ -29,7 +29,7 @@ class AuthController
         }
 
         $user = $this->authService->login($email, $password);
-
+        
         if (!$user) {
             $errors[] = 'Invalid email or password';
             $_SESSION['errors'] = $errors;
@@ -77,7 +77,7 @@ class AuthController
             'name' => $user->name,
             'role' => $user->role
         ];
-        header('Location: '.$this->basePath. $obj->role.'/dashboard');
+        header('Location: '.$this->basePath.'/'.$obj->role.'/dashboard');
         exit;
     }
 }
