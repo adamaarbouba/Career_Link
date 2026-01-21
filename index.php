@@ -5,7 +5,6 @@ use App\Router\Router;
 use App\Controllers\AuthController;
 use App\Middleware\AuthMiddleware;
 
-
 $request = $_SERVER["REQUEST_URI"];
 
 $script_name = '/Career_Link/';
@@ -44,6 +43,15 @@ $Router->add("candidate/dashboard", function() {
 
 $Router->add("home", function () {
     include_once "src/Views/home.php";
+});
+$Router->add("authLogin", function () {
+    
+});
+$Router->add("authCandidate", function () {
+    
+});
+$Router->add("authRecruiter", function () {
+    
 });
 
 

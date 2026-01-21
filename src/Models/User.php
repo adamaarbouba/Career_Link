@@ -1,12 +1,14 @@
 <?php
+
 namespace App\Models;
 
-abstract class User {
-    protected $id;
-    protected $name;
-    protected $email;
-    protected $password;
-    protected $role;
+abstract class User
+{
+    protected ?int $id;
+    protected string $name;
+    protected string $email;
+    protected string $password;
+    protected string $role;
 
     public function __construct($name, $email, $password ,$id = null) {
         $this->name = $name;
@@ -15,5 +17,5 @@ abstract class User {
         $this->id = $id;
     }
 
-    abstract public function setRole($role);
+    abstract public function setRole(Role $role);
 }

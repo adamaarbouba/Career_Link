@@ -114,8 +114,8 @@
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <a href="register" class="text-sm font-medium text-slate-300 hover:text-emerald-400 transition-colors">Sign In</a>
-                    <a href="login" class="btn-primary px-4 py-2 rounded-md text-sm">Get Started</a>
+                    <a href="login" class="text-sm font-medium text-slate-300 hover:text-emerald-400 transition-colors">Sign In</a>
+                    <a href="register" class="btn-primary px-4 py-2 rounded-md text-sm">Get Started</a>
                 </div>
             </div>
         </div>

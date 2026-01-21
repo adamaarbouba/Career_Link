@@ -53,7 +53,7 @@ class AuthController
         $email = trim($_POST['email'] ?? "");
         $role = trim($_POST['role'] ?? "");
         $password = trim($_POST['password'] ?? "");
-        $passwordComformet = trim($_POST['confirm-password'] ?? "");
+        $passwordComformet = trim($_POST['confirm_password'] ?? "");
         
         if(empty($name) || empty($email) || empty($password) || empty($passwordComformet)){
             $errors[] = 'Inputs must be not empty';
