@@ -38,6 +38,9 @@ $Router->add("recruiter", function () {
     $controller = new \App\Controllers\OfferController();
     $controller->index();  
 });
+$Router->add("recruiter/dashboard", function () {
+    include "src/Views/recruiter/dashboard.php";
+});
 $Router->add("candidate/dashboard", function () {
     include "src/Views/candidate/dashboard.php";
 });

@@ -48,7 +48,7 @@ class AuthController
         ];
        $dashboardPath = $this->basePath . '/' . $user->role->title . '/dashboard';
        header('Location: ' . $dashboardPath);
-    exit;
+       exit;
     }
     public function register()
     {
