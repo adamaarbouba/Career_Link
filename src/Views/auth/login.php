@@ -72,7 +72,7 @@ $old = $_SESSION['old'] ?? [];
 <body>
 
   <nav class="absolute top-0 left-0 w-full p-6">
-    <a href="/" class="flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors w-fit">
+    <a href="/Career_Link/" class="flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors w-fit">
       <span class="font-medium">← Back to Home</span>
     </a>
   </nav>
