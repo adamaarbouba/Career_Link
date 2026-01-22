@@ -76,7 +76,7 @@ INSERT INTO roles (id, title) VALUES
 (1, 'admin'),
 (2, 'recruiter'),
 (3, 'candidate');
-select * from users;
+select * from recruteurs;
 INSERT INTO users (id, name, email, password, role_id) VALUES
 (1, 'Admin User', 'admin@example.com', '$2y$10$adminhashedpassword', 1),
 (2, 'recruiter User', 'recruiter@example.com', '$2y$10$recruiterhashedpassword', 2),
@@ -94,7 +94,6 @@ INSERT INTO Categories (title) VALUES
 ('Mobile Development'),
 ('Data Science');
 
--- Insert offers (linked to categories)
 INSERT INTO offers (title, description, salary, Category_id) VALUES
 ('Junior PHP Developer', 
  'Work on backend features using PHP and MySQL.', 
