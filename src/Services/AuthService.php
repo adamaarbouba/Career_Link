@@ -54,8 +54,7 @@ class AuthService
           $passwordHash = password_hash($obj->password , PASSWORD_DEFAULT);
 
           $role_id = 0;
-
-          switch($obj->role){
+          switch($obj->role->title){
             case 'admin':
                 $role_id = 1;
                 break;
@@ -69,7 +68,7 @@ class AuthService
 
           $data = ['name' => $obj->name , 'email' => $obj->email , 'password' => $passwordHash , 'role_id' => $role_id];
           $lastId = $this->userRepo->create($data);
-          $obj->id($lastId);
+          $obj->id=$lastId;
           return $obj; 
     }
 }

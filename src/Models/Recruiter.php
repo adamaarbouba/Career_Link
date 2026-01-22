@@ -11,7 +11,7 @@ class Recruiter extends User {
     public function setRole($role) {
         $this->role = $role;
     }
-
+   
     public function __get($name)
     {
         return $this->$name;

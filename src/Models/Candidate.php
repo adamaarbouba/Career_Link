@@ -51,6 +51,7 @@ class Candidate extends User {
         }
         return '#';
     }
+   
     public function __get($name)
     {
         return $this->$name;

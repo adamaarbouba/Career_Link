@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 use App\Services\AuthService;
+use App\Models\Role;
 session_start();
 
 class AuthController
@@ -42,7 +43,7 @@ class AuthController
             'name' => $user->name,
             'role' => $user->role
         ];
-       $dashboardPath = $this->basePath . '/' . $user->role . '/dashboard';
+       $dashboardPath = $this->basePath . '/' . $user->role->title . '/dashboard';
        header('Location: ' . $dashboardPath);
     exit;
     }
@@ -68,16 +69,27 @@ class AuthController
         }
         $roleEntity = "App\Models\\" .ucfirst($role);
         $obj = new $roleEntity($name , $email ,$password);
-        $obj->setRole($role);
+        $objRole = new Role($role);
+        $obj->setRole($objRole);
         
         $user = $this->authService->Register($obj);
-        
+        if(!$user){
+            $errors[] = 'you are alradeady existe';
+            $_SESSION['errors'] = $errors;
+            header('Location: '.$this->basePath.'/register');
+            exit;
+        }
         $_SESSION['user'] = [
             'id'   => $user->id,
             'name' => $user->name,
             'role' => $user->role
         ];
-        header('Location: '.$this->basePath.'/'.$obj->role.'/dashboard');
+        header('Location: '.$this->basePath.'/'.$obj->role->title.'/dashboard');
+        exit;
+    }
+    public function logout(){
+        unset($_SESSION['user']);
+        header('Location: '.$this->basePath.'/home');
         exit;
     }
 }
