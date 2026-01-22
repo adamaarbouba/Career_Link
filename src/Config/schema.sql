@@ -53,6 +53,11 @@ CREATE TABLE offers (
     Category_id int,
     Foreign Key (Category_id) REFERENCES Categories(id) on DELETE CASCADE
 );
+ALTER Table offers
+add column recruteur_id int;
+
+ALTER TABLE offers
+add FOREIGN key (recruteur_id) REFERENCES recruteurs(id);
 
 create Table candidates_offers(
     cv VARCHAR(100),
