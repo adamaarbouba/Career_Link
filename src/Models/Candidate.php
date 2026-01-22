@@ -6,9 +6,9 @@ class Candidate extends User
 {
     private $cv;
 
-    public function __construct($id = null, $name, $email, $password, $cv = null)
+    public function __construct($name, $email, $password, $id = null, $cv = null)
     {
-        parent::__construct($id, $name, $email, $password);
+        parent::__construct($name, $email, $password, $id);
         $this->cv = $cv;
     }
     public function setRole($role)
