@@ -10,7 +10,9 @@ abstract class User
     protected  $password;
     protected  $role;
 
-    public function __construct($name, $email, $password ,$id = null) {
+    public function __construct($name, $email, $password,$id = null)
+    {
+        $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
