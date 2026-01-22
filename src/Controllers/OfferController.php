@@ -4,27 +4,31 @@ namespace App\Controllers;
 use App\Models\Offer;
 use App\Repositories\OfferRepository;
 use App\Repositories\CandidateRepository;
+use App\Repositories\CategoryRepository;
 
 class OfferController
 {
     private $offerRepo;
     private $candidateRepo;
+    private $categoryRepo;
 
     public function __construct()
     {
         $this->offerRepo = new OfferRepository();
         $this->candidateRepo = new CandidateRepository();
+        $this->categoryRepo = new CategoryRepository();
     }
 
     public function index()
     {
         $data = $this->offerRepo->findAll();
         $offers = array_map(function ($item) {
+            $category = $this->categoryRepo->findById($item['category_id']);
             return new Offer(
                 $item['title'],
                 $item['description'],
                 $item['salary'],
-                $item['category_id'],
+                $category,
                 $item['id']
             );
         }, $data);
@@ -38,7 +42,8 @@ class OfferController
         $salary = $_POST['salary'];
         $category_id = $_POST['category_id'];
 
-        $offer = new Offer($title, $description, $salary, $category_id);
+        $category = $this->categoryRepo->findById($category_id);
+        $offer = new Offer($title, $description, $salary, $category);
         $this->offerRepo->create($offer);
 
         header("Location: /offers");
