@@ -109,4 +109,3 @@ INSERT INTO offers (title, description, salary, Category_id) VALUES
  'Analyze data and create reports for business decisions.', 
  7000.00, 
  3);
-    

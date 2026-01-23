@@ -45,10 +45,11 @@ class AuthService
         $obj = new $roleEntity(
             $userFound['name'],
             $userFound['email'],
-            $userFound['password']
+            $userFound['password'],
+            $userFound['id']
         );
-
-        $obj->setRole($role['title']);
+        $role = new \App\Models\Role($role['title']);
+        $obj->setRole($role);
 
         return $obj;
     }
