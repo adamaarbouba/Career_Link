@@ -45,7 +45,7 @@ class AuthController
         $_SESSION['user'] = [
             'id'   => $user->id,
             'name' => $user->name,
-            'role' => $user->role
+            'role' => $user->role->title
         ];
         
        $dashboardPath = $this->basePath . '/' . $user->role->title . '/dashboard';
@@ -92,7 +92,7 @@ class AuthController
         $_SESSION['user'] = [
             'id'   => $user->id,
             'name' => $user->name,
-            'role' => $user->role
+            'role' => $user->role->title
         ];
         header('Location: '.$this->basePath.'/'.$obj->role->title.'/dashboard');
         exit;
