@@ -47,8 +47,6 @@ class AuthService
             $userFound['email'],
             $userFound['password'],
             $userFound['id']
-            $userFound['password'],
-            $userFound['id']
         );
         $role = new \App\Models\Role($role['title']);
         $obj->setRole($role);

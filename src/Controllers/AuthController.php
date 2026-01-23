@@ -81,7 +81,7 @@ class AuthController
         $objRole = new Role($role);
         $obj->setRole($objRole);
         
-        $user = $this->authService->Register($obj);
+        $user = $this->authService->register($obj);
         
         if(!$user){
             $errors[] = 'you are alradeady existe';
