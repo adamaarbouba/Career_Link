@@ -114,28 +114,28 @@
                     <tr>
                         <th class="px-6 py-4">Job Title</th>
                         <th class="px-6 py-4">Description</th>
-                        <th class="px-6 py-4">Status</th>
                         <th class="px-6 py-4 text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-700">
-                    <?php if (isset($offers)): foreach ($offers as $offer): ?>
-                    <tr class="hover:bg-slate-800/30">
-                        <td class="px-6 py-4">
-                            <div class="font-medium text-white"><?= htmlspecialchars($offer->title) ?></div>
-                            <div class="text-xs text-slate-500">$<?= htmlspecialchars($offer->salary) ?>/mo</div>
-                        </td>
-                        <td class="px-6 py-4 text-slate-400 text-sm">
-                            <?= htmlspecialchars(substr($offer->description, 0, 50)) ?>...
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-1 text-xs font-semibold text-emerald-400 bg-emerald-400/10 rounded-full">Active</span>
-                        </td>
-                        <td class="px-6 py-4 text-right space-x-2">
-                            <button class="text-slate-400 hover:text-white">Edit</button>
-                            <button class="text-red-400 hover:text-red-300">Archive</button>
-                        </td>
-                    </tr>
+                    <?php if (empty($offers)): ?>
+                        <tr>
+                            <td colspan="3" class="px-6 py-4 text-center text-slate-500 italic">No job offers posted yet.</td>
+                        </tr>
+                    <?php else: foreach ($offers as $offer): ?>
+                        <tr class="hover:bg-slate-800/30">
+                            <td class="px-6 py-4">
+                                <div class="font-medium text-white"><?= htmlspecialchars($offer->title) ?></div>
+                                <div class="text-xs text-slate-500">$<?= htmlspecialchars($offer->salary) ?>/mo</div>
+                            </td>
+                            <td class="px-6 py-4 text-slate-400 text-sm">
+                                <?= htmlspecialchars(substr($offer->description, 0, 50)) ?>...
+                            </td>
+                            <td class="px-6 py-4 text-right space-x-2">
+                                <button class="text-slate-400 hover:text-white">Edit</button>
+                                <button class="text-red-400 hover:text-red-300">Archive</button>
+                            </td>
+                        </tr>
                     <?php endforeach; endif; ?>
                 </tbody>
             </table>

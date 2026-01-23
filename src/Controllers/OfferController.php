@@ -21,7 +21,7 @@ class OfferController
 
     public function index()
     {
-        $data = $this->offerRepo->findAll();
+        $data = $this->offerRepo->findAllBy('recruteur_id',$_SESSION['user']['id']);
         $offers = array_map(function ($item) {
             $category = $this->categoryRepo->findById($item['category_id']);
             return new Offer(
@@ -32,6 +32,7 @@ class OfferController
                 $item['id']
             );
         }, $data);
+        
         include_once "src/Views/recruiter/dashboard.php";
     }
 

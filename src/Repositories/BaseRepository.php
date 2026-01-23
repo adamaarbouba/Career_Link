@@ -22,6 +22,12 @@ class BaseRepository {
         return $stmt->fetchAll();
     }
 
+    public function findAllBy($property, $value) {
+        $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE " . $property . " = :" . $property);
+        $stmt->execute([':' . $property => $value]);
+        return $stmt->fetchAll();
+    }
+
     public function create($data)
     // $data = ['name' => 'anas', 'email' => 'anas@anas.com'...]
     {
