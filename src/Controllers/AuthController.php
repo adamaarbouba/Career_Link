@@ -34,6 +34,7 @@ class AuthController
 
         $user = $this->authService->login($email, $password);
 
+
         if (!$user) {
             $errors[] = 'Invalid email or password';
             $_SESSION['errors'] = $errors;
@@ -46,7 +47,11 @@ class AuthController
             'name' => $user->name,
             'role' => $user->role
         ];
+        
        $dashboardPath = $this->basePath . '/' . $user->role->title . '/dashboard';
+    //    var_dump($user);
+    //    var_dump($dashboardPath);
+    //     exit;
        header('Location: ' . $dashboardPath);
        exit;
     }

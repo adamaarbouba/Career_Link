@@ -32,7 +32,9 @@ $Router->add("register/post", function () use ($auth) {
 });
 
 $Router->add("admin/dashboard", function () {
-    include "src/Views/admin/dashboard.php";
+    $adminController = new \App\Controllers\AdminController();
+    $adminController->getAllOffers();
+   
 });
 $Router->add("recruiter", function () {
     $controller = new \App\Controllers\OfferController();
