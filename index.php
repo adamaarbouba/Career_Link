@@ -33,7 +33,7 @@ $Router->add("register/post", function () use ($auth) {
 
 $Router->add("admin/dashboard", function () {
     $adminController = new \App\Controllers\AdminController();
-    $adminController->getAllOffers();
+    $adminController->dashboard();
    
 });
 $Router->add("recruiter/dashboard", function () {

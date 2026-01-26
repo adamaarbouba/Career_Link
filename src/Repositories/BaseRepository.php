@@ -66,6 +66,5 @@ class BaseRepository {
         return $stmt->execute([':id' => $id]);
     }
 
-
 }
 

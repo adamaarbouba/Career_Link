@@ -76,8 +76,8 @@ INSERT INTO roles (id, title) VALUES
 (1, 'admin'),
 (2, 'recruiter'),
 (3, 'candidate');
-select * from users;
-INSERT INTO users (id, name, email, password, role_id) VALUES
+select * from recruteurs;
+INSERT INTO users (id, name, email, password, role_id ) VALUES
 (1, 'Admin User', 'admin@example.com', '$2y$10$adminhashedpassword', 1),
 (2, 'recruiter User', 'recruiter@example.com', '$2y$10$recruiterhashedpassword', 2),
 (3, 'Candidate User', 'candidate@example.com', '$2y$10$candidatehashedpassword', 3);
@@ -94,18 +94,8 @@ INSERT INTO Categories (title) VALUES
 ('Mobile Development'),
 ('Data Science');
 
-INSERT INTO offers (title, description, salary, Category_id) VALUES
+INSERT INTO offers (title, description, salary, Category_id , recruteur_id) VALUES
 ('Junior PHP Developer', 
  'Work on backend features using PHP and MySQL.', 
  4500.00, 
- 1),
-
-('Android Developer', 
- 'Develop and maintain Android applications.', 
- 6000.00, 
- 2),
-
-('Data Analyst', 
- 'Analyze data and create reports for business decisions.', 
- 7000.00, 
- 3);
+ 1 , 40);
