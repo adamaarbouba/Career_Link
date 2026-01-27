@@ -1,237 +1,203 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+// Pull errors as a simple indexed array
+$errors = $_SESSION['errors'] ?? [];
+$old = $_SESSION['old'] ?? [];
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecureCore - Register</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      :root {
-        --color-bg-primary: #0f172a;
-        --color-bg-secondary: #1e293b;
-        --color-bg-tertiary: #334155;
-        --color-accent: #10b981;
-        --color-accent-dark: #059669;
-        --color-text-primary: #f1f5f9;
-        --color-text-secondary: #cbd5e1;
-        --color-border: #334155;
-      }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerLink - Register</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --color-bg-primary: #0f172a;
+      --color-accent: #10b981;
+      --color-text-primary: #f1f5f9;
+      --color-border: #334155;
+    }
 
-      body {
-        background: linear-gradient(135deg, #0f172a 0%, #1a2342 100%);
-        color: var(--color-text-primary);
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        min-height: 100vh;
-      }
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1a2342 100%);
+      color: var(--color-text-primary);
+      font-family: system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+    }
 
-      .input-field {
-        background-color: rgba(30, 41, 59, 0.7);
-        border: 1px solid var(--color-border);
-        border-radius: 0.5rem;
-        padding: 0.75rem 1rem;
-        color: var(--color-text-primary);
-        backdrop-filter: blur(4px);
-        transition: all 0.2s;
-      }
+    .form-container {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--color-border);
+      border-radius: 0.75rem;
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+    }
 
-      .input-field:focus {
-        outline: none;
-        border-color: var(--color-accent);
-        background-color: rgba(30, 41, 59, 0.9);
-        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
-      }
+    .input-field {
+      background-color: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--color-border);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      color: var(--color-text-primary);
+      width: 100%;
+      margin-bottom: 0.5rem;
+      transition: all 0.2s;
+    }
 
-      .input-field::placeholder {
-        color: var(--color-text-secondary);
-      }
+    .input-field:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      background-color: rgba(30, 41, 59, 0.9);
+    }
 
-      .btn-primary {
-        background-color: var(--color-accent);
-        color: var(--color-bg-primary);
-        border: none;
-        border-radius: 0.5rem;
-        padding: 0.75rem 1.5rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s;
-      }
+    .role-option {
+      padding: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: 0.5rem;
+      background-color: rgba(30, 41, 59, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
 
-      .btn-primary:hover {
-        background-color: var(--color-accent-dark);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 16px rgba(16, 185, 129, 0.2);
-      }
+    .role-option.selected {
+      border-color: var(--color-accent);
+      background-color: rgba(16, 185, 129, 0.1);
+    }
 
-      .btn-primary:active {
-        transform: translateY(0);
-      }
+    .btn-primary {
+      background-color: var(--color-accent);
+      color: #0f172a;
+      font-weight: bold;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      width: 100%;
+      transition: transform 0.1s;
+    }
 
-      .form-container {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%);
-        border: 1px solid var(--color-border);
-        border-radius: 0.75rem;
-        backdrop-filter: blur(8px);
-        padding: 2.5rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      }
-
-      .link-accent {
-        color: var(--color-accent);
-        text-decoration: none;
-        transition: opacity 0.2s;
-      }
-
-      .link-accent:hover {
-        opacity: 0.8;
-      }
-
-      .divider {
-        border-color: var(--color-border);
-      }
-
-      .role-option {
-        padding: 1rem;
-        border: 1px solid var(--color-border);
-        border-radius: 0.5rem;
-        background-color: rgba(30, 41, 59, 0.5);
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      .role-option:hover {
-        border-color: var(--color-accent);
-        background-color: rgba(30, 41, 59, 0.8);
-      }
-
-      .role-option input:checked + .role-label {
-        color: var(--color-accent);
-        font-weight: 600;
-      }
-
-      .role-option input:checked {
-        accent-color: var(--color-accent);
-      }
-    </style>
+    .hidden { display: none !important; }
+  </style>
 </head>
-<body>
-    <div class="min-h-screen flex items-center justify-center px-4 py-12">
-        <div class="w-full max-w-md">
-            <!-- Header -->
-            <div class="text-center mb-8">
-                <div class="flex items-center justify-center mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-lg flex items-center justify-center shadow-lg">
-                        <svg class="w-7 h-7 text-slate-950" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                </div>
-                <h1 class="text-3xl font-bold text-slate-100">SecureCore</h1>
-                <p class="text-slate-400 text-sm mt-2">Create Your Secure Account</p>
-            </div>
 
-            <!-- Register Form -->
-            <form class="form-container space-y-5">
-                <!-- Full Name -->
-                <div>
-                    <label for="name" class="block text-sm font-medium text-slate-200 mb-2">Full Name</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        class="input-field w-full"
-                        placeholder="John Doe"
-                        required
-                    />
-                </div>
+<body class="flex items-center justify-center p-4">
 
-                <!-- Email -->
-                <div>
-                    <label for="email" class="block text-sm font-medium text-slate-200 mb-2">Email Address</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        class="input-field w-full"
-                        placeholder="you@example.com"
-                        required
-                    />
-                </div>
+  <div class="w-full max-w-lg">
+    <h1 class="text-3xl font-bold text-center text-slate-100 mb-8">Join CareerLink</h1>
 
-                <!-- Enhanced role selection with better UX for all three roles -->
-                <div>
-                    <label class="block text-sm font-medium text-slate-200 mb-3">Account Type</label>
-                    <div class="space-y-2">
-                        <label class="role-option flex items-center">
-                            <input type="radio" name="role" value="candidate" class="w-4 h-4" required>
-                            <span class="role-label ml-3 text-slate-200">Candidate - Job Seeker</span>
-                        </label>
-                        <label class="role-option flex items-center">
-                            <input type="radio" name="role" value="company" class="w-4 h-4" required>
-                            <span class="role-label ml-3 text-slate-200">Company - Employer</span>
-                        </label>
-                    </div>
-                </div>
+    <?php if (!empty($errors)): ?>
+      <div class="bg-red-500/10 border border-red-500 text-red-200 px-4 py-3 rounded mb-6 text-sm">
+        <p class="font-bold mb-1">Please correct the following:</p>
+        <ul class="list-disc list-inside">
+          <?php foreach ($errors as $error): ?>
+            <li><?= htmlspecialchars($error) ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    <?php endif; ?>
 
-                <!-- Password -->
-                <div>
-                    <label for="password" class="block text-sm font-medium text-slate-200 mb-2">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        class="input-field w-full"
-                        placeholder="••••••••"
-                        required
-                    />
-                    <p class="text-xs text-slate-400 mt-2">
-                        Minimum 8 characters with uppercase, lowercase and number
-                    </p>
-                </div>
+    <form action="/Career_Link/register/post" method="POST" enctype="multipart/form-data" class="form-container" id="registerForm">
 
-                <!-- Confirm Password -->
-                <div>
-                    <label for="confirm-password" class="block text-sm font-medium text-slate-200 mb-2">Confirm Password</label>
-                    <input
-                        type="password"
-                        id="confirm-password"
-                        name="confirm-password"
-                        class="input-field w-full"
-                        placeholder="••••••••"
-                        required
-                    />
-                </div>
+      <label class="block text-sm font-medium text-slate-300 mb-3">I am a...</label>
+      <div class="grid grid-cols-2 gap-3 mb-6">
+        <label class="role-option" id="lbl-candidate">
+          <input type="radio" name="role" value="candidate" class="accent-emerald-500 w-5 h-5"
+            <?= (!isset($old['role']) || $old['role'] === 'candidate') ? 'checked' : '' ?>>
+          <span class="text-slate-200 font-medium">Candidate</span>
+        </label>
+        <label class="role-option" id="lbl-recruiter">
+          <input type="radio" name="role" value="recruiter" class="accent-emerald-500 w-5 h-5"
+            <?= (isset($old['role']) && $old['role'] === 'recruiter') ? 'checked' : '' ?>>
+          <span class="text-slate-200 font-medium">Recruiter</span>
+        </label>
+      </div>
 
-                <!-- Register Button -->
-                <button type="submit" class="btn-primary w-full py-2.5 text-base mt-6">
-                    Create Account
-                </button>
-            </form>
+      <div class="mb-2">
+        <label class="block text-sm text-slate-300 mb-1">Full Name</label>
+        <input type="text" name="name" class="input-field" placeholder="John Doe" value="<?= htmlspecialchars($old['name'] ?? '') ?>" required>
+      </div>
 
-            <!-- Divider -->
-            <div class="relative my-6">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t divider"></div>
-                </div>
-                <div class="relative flex justify-center text-sm">
-                    <span class="px-2" style="background-color: var(--color-bg-primary);">
-                        <span class="text-slate-400">Already have an account?</span>
-                    </span>
-                </div>
-            </div>
+      <div class="mb-2">
+        <label class="block text-sm text-slate-300 mb-1">Email Address</label>
+        <input type="email" name="email" class="input-field" placeholder="you@example.com" value="<?= htmlspecialchars($old['email'] ?? '') ?>" required>
+      </div>
 
-            <!-- Login Link -->
-            <a
-                href="login.php"
-                class="block w-full text-center py-2.5 px-4 rounded-md border border-slate-600 text-slate-200 font-medium transition-all hover:bg-slate-900 hover:border-emerald-500"
-            >
-                Sign In
-            </a>
-
-            <!-- Footer -->
-            <div class="text-center mt-8 text-xs text-slate-500">
-                <p>© 2026 SecureCore. All rights reserved.</p>
-            </div>
+      <div class="grid grid-cols-2 gap-4 mb-2">
+        <div>
+          <label class="block text-sm text-slate-300 mb-1">Password</label>
+          <input type="password" name="password" class="input-field" placeholder="••••••••" required>
         </div>
-    </div>
+        <div>
+          <label class="block text-sm text-slate-300 mb-1">Confirm</label>
+          <input type="password" name="confirm_password" class="input-field" placeholder="••••••••" required>
+        </div>
+      </div>
+
+      <div id="recruiter-extras" class="hidden border-t border-slate-600 pt-4 mt-4">
+        <p class="text-xs text-emerald-400 font-bold uppercase mb-4 tracking-wider">Company Details</p>
+        <div class="mb-2">
+          <label class="block text-sm text-slate-300 mb-1">Company Name</label>
+          <input type="text" name="Company_name" class="input-field" value="<?= htmlspecialchars($old['Company_name'] ?? '') ?>" disabled>
+        </div>
+        <div class="mb-2">
+          <label class="block text-sm text-slate-300 mb-1">Company Description</label>
+          <textarea name="description" class="input-field h-24" disabled><?= htmlspecialchars($old['description'] ?? '') ?></textarea>
+        </div>
+      </div>
+
+      <div id="candidate-extras" class="border-t border-slate-600 pt-4 mt-4">
+        <p class="text-xs text-emerald-400 font-bold uppercase mb-4 tracking-wider">Candidate Details</p>
+        <div class="mb-2">
+          <label class="block text-sm text-slate-300 mb-1">Upload Resume (CV)</label>
+          <input type="file" name="cv" accept=".pdf,.doc,.docx" class="input-field p-2">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary mt-6">Create Account</button>
+    </form>
+
+    <p class="text-center text-slate-400 text-sm mt-6">Already have an account? <a href="login" class="text-emerald-400 hover:underline">Sign In</a></p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const radios = document.querySelectorAll('input[name="role"]');
+      const recruiterExtras = document.getElementById('recruiter-extras');
+      const candidateExtras = document.getElementById('candidate-extras');
+      const lblCandidate = document.getElementById('lbl-candidate');
+      const lblRecruiter = document.getElementById('lbl-recruiter');
+
+      function updateFormState() {
+        const selectedRole = document.querySelector('input[name="role"]:checked').value;
+        const recruiterInputs = recruiterExtras.querySelectorAll('input, textarea');
+
+        if (selectedRole === 'recruiter') {
+          recruiterExtras.classList.remove('hidden');
+          candidateExtras.classList.add('hidden');
+          lblRecruiter.classList.add('selected');
+          lblCandidate.classList.remove('selected');
+          recruiterInputs.forEach(i => i.disabled = false);
+        } else {
+          recruiterExtras.classList.add('hidden');
+          candidateExtras.classList.remove('hidden');
+          lblCandidate.classList.add('selected');
+          lblRecruiter.classList.remove('selected');
+          recruiterInputs.forEach(i => i.disabled = true);
+        }
+      }
+
+      radios.forEach(r => r.addEventListener('change', updateFormState));
+      updateFormState();
+    });
+  </script>
+
+  <?php 
+    // Clear errors after displaying them
+    unset($_SESSION['errors']);
+    unset($_SESSION['old']); 
+  ?>
 </body>
 </html>

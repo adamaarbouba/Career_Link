@@ -1,6 +1,7 @@
 {
-    "name": "youcode/mvc-authentification-system",
-    "description": "Système d'authentification MVC",
+    "name": "vi/career_link",
+    "description": "Career_link",
+    "type": "project",
     "autoload": {
         "psr-4": {
             "App\\": "src/"

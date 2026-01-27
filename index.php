@@ -5,7 +5,6 @@ use App\Router\Router;
 use App\Controllers\AuthController;
 use App\Middleware\AuthMiddleware;
 
-
 $request = $_SERVER["REQUEST_URI"];
 
 $script_name = '/Career_Link/';
@@ -17,30 +16,51 @@ $url = parse_url($url, PHP_URL_PATH);
 $url = trim($url, '/');
 
 $Router = new Router();
+$auth = new AuthController();
 
 $Router->add("register", function () {
     include_once "src/Views/auth/register.php";
-    echo "Hello";
-    // $auth = new AuthController;
-    // $auth->register();
 });
 $Router->add("login", function () {
     include_once "src/Views/auth/login.php";
 });
-$Router->add("admin", function () {
-    // $midWare = new AuthMiddleware;
-    // $midWare->Check();
+$Router->add("login/post", function () use ($auth) {
+    $auth->login();
 });
-$Router->add("recruiter", function () {
-    // $midWare = new AuthMiddleware;
-    // $midWare->Check();
+$Router->add("register/post", function () use ($auth) {
+    $auth->register();
 });
-$Router->add("candidate", function () {
-    // $midWare = new AuthMiddleware;
-    // $midWare->Check();
+
+$Router->add("admin/dashboard", function () {
+    $adminController = new \App\Controllers\AdminController();
+    $adminController->dashboard();
+   
 });
+$Router->add("recruiter/dashboard", function () {
+    $controller = new \App\Controllers\OfferController();
+    $controller->index(); 
+});
+$Router->add("candidate/dashboard", function () {
+    include "src/Views/candidate/dashboard.php";
+});
+
 $Router->add("home", function () {
     include_once "src/Views/home.php";
 });
+$Router->add("recruiter/offer", function () {
+    include_once "src/Views/recruiter/createJobOffer.php";
+});
+$Router->add("recruiter/offer/save", function () {
+    $controller = new \App\Controllers\OfferController();
+    $controller->store();
+});
+$Router->add("recruiter/offers/search", function () {
+    $controller = new \App\Controllers\OfferController();
+    $controller->search();
+});
+$Router->add("saveJob", function () {});
+$Router->add("authLogin", function () {});
+$Router->add("authCandidate", function () {});
+$Router->add("authRecruiter", function () {});
 
 $Router->dispatch($url);
