@@ -63,7 +63,10 @@ class OfferController
         $recruiterId = $_SESSION['user']['id'];
 
         $offers = $this->offerRepo->searchByTitle($recruiterId, $title);
-
+        foreach ($offers as &$offer) {
+            $offer['category'] = $this->categoryRepo->findById($offer['category_id']);
+            $offer['applications'] = $this->offerRepo->applicationsCountByOfferId($offer['id']);
+        }
         header('Content-Type: application/json');
         echo json_encode($offers);
     }
