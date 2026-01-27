@@ -50,6 +50,14 @@ $Router->add("home", function () {
 $Router->add("recruiter/offer", function () {
     include_once "src/Views/recruiter/createJobOffer.php";
 });
+$Router->add("recruiter/offer/save", function () {
+    $controller = new \App\Controllers\OfferController();
+    $controller->store();
+});
+$Router->add("recruiter/offers/search", function () {
+    $controller = new \App\Controllers\OfferController();
+    $controller->search();
+});
 $Router->add("saveJob", function () {});
 $Router->add("authLogin", function () {});
 $Router->add("authCandidate", function () {});

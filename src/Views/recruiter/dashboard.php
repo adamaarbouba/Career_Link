@@ -55,10 +55,19 @@
         }
 
         /* Scrollbar */
-        .modal-scroll::-webkit-scrollbar { width: 8px; }
-        .modal-scroll::-webkit-scrollbar-track { background: rgba(30, 41, 59, 0.5); }
-        .modal-scroll::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
-        
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-scroll::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 4px;
+        }
+
         /* Custom Checkbox Hover Effect */
         .tag-label:hover {
             background-color: rgba(16, 185, 129, 0.1);
@@ -76,11 +85,15 @@
         </div>
         <nav class="flex-1 px-4 space-y-2 mt-4">
             <a href="#" class="flex items-center gap-3 px-4 py-3 bg-emerald-500/10 text-emerald-400 rounded-lg border-l-4 border-emerald-500">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
                 My Jobs
             </a>
             <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
                 Applications
             </a>
         </nav>
@@ -92,7 +105,9 @@
             <h1 class="text-2xl font-bold">Manage Offers</h1>
 
             <button id="openModalBtn" class="btn-primary flex items-center gap-2 shadow-lg shadow-emerald-500/20">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
                 Post New Job
             </button>
         </header>
@@ -104,58 +119,63 @@
             </div>
             <div class="glass-panel p-4 rounded-lg">
                 <p class="text-slate-400 text-xs uppercase">Total Applicants</p>
-                <p class="text-2xl font-bold text-white">48</p>
+                <p class="text-2xl font-bold text-white"><?= isset($offers) ? array_sum(array_column($offers, 'applications')) : 0 ?></p>
             </div>
         </div>
-
+        <div>
+            <input type="text" name="search" id="searchInput" placeholder="Search job offers..." class="input-field w-full rounded-lg px-4 py-3 mb-6">
+        </div>
         <div class="glass-panel rounded-xl overflow-hidden">
             <table class="w-full text-left">
-                <thead class="bg-slate-800/50 text-slate-400 text-xs uppercase">
+                <thead class="bg-slate-800/50 text-slate-400 text-xs text-center uppercase">
                     <tr>
                         <th class="px-6 py-4">Job Title</th>
-                        <th class="px-6 py-4">Description</th>
+                        <th class="px-6 py-4">Applications</th>
                         <th class="px-6 py-4 text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-700">
+                <tbody id="offersTable" class="divide-y divide-slate-700 text-center">
                     <?php if (empty($offers)): ?>
                         <tr>
                             <td colspan="3" class="px-6 py-4 text-center text-slate-500 italic">No job offers posted yet.</td>
                         </tr>
-                    <?php else: foreach ($offers as $offer): ?>
-                        <tr class="hover:bg-slate-800/30">
-                            <td class="px-6 py-4">
-                                <div class="font-medium text-white"><?= htmlspecialchars($offer->title) ?></div>
-                                <div class="text-xs text-slate-500">$<?= htmlspecialchars($offer->salary) ?>/mo</div>
-                            </td>
-                            <td class="px-6 py-4 text-slate-400 text-sm">
-                                <?= htmlspecialchars(substr($offer->description, 0, 50)) ?>...
-                            </td>
-                            <td class="px-6 py-4 text-right space-x-2">
-                                <button class="text-slate-400 hover:text-white">Edit</button>
-                                <button class="text-red-400 hover:text-red-300">Archive</button>
-                            </td>
-                        </tr>
-                    <?php endforeach; endif; ?>
+                        <?php else: foreach ($offers as $offer): ?>
+                            <tr class="hover:bg-slate-800/30">
+                                <td class="px-6 py-4">
+                                    <div class="font-medium text-white"><?= htmlspecialchars($offer['offer']->title) ?></div>
+                                    <div class="text-xs text-slate-500">$<?= htmlspecialchars($offer['offer']->salary) ?>/mo</div>
+                                </td>
+                                <td class="px-6 py-4 text-slate-400 text-sm text-center">
+                                    <?= htmlspecialchars($offer['applications']) ?>
+                                </td>
+                                <td class="px-6 py-4 text-right space-x-2">
+                                    <button class="text-slate-400 hover:text-white">Edit</button>
+                                    <button class="text-red-400 hover:text-red-300">Archive</button>
+                                </td>
+                            </tr>
+                    <?php endforeach;
+                    endif; ?>
                 </tbody>
             </table>
         </div>
     </main>
 
     <div id="jobModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
-        
+
         <div class="w-full max-w-2xl transform scale-95 transition-transform duration-300" id="modalContent">
-            
+
             <div class="glass-panel rounded-xl shadow-2xl overflow-hidden">
                 <div class="flex items-center justify-between px-8 py-6 border-b border-slate-700">
                     <h2 class="text-2xl font-bold text-slate-100">Post a New Job</h2>
                     <button id="closeModalBtn" class="text-slate-400 hover:text-white transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
                     </button>
                 </div>
 
-                <form id="createJobForm" action="/recruiter/offer/save" method="POST" class="p-8 max-h-[80vh] overflow-y-auto modal-scroll">
-                    
+                <form id="createJobForm" action="/Career_Link/recruiter/offer/save" method="POST" class="p-8 max-h-[80vh] overflow-y-auto modal-scroll">
+
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-slate-300 mb-2">Job Title</label>
                         <input type="text" name="title" class="input-field w-full rounded-lg px-4 py-3" placeholder="e.g. Senior PHP Developer" required>
@@ -165,14 +185,17 @@
                         <div>
                             <label class="block text-sm font-medium text-slate-300 mb-2">Category</label>
                             <div class="relative">
-                                <select name="Category_id" class="input-field w-full rounded-lg px-4 py-3 appearance-none cursor-pointer" required>
+                                <select name="category_id" class="input-field w-full rounded-lg px-4 py-3 appearance-none cursor-pointer" required>
                                     <option value="" disabled selected>Select Category</option>
-                                    <?php if(isset($categories)): foreach ($categories as $category): ?>
-                                        <option value="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
-                                    <?php endforeach; endif; ?>
+                                    <?php if (isset($categories)): foreach ($categories as $category): ?>
+                                            <option value="<?= $category['id'] ?>"><?= htmlspecialchars($category['title']) ?></option>
+                                    <?php endforeach;
+                                    endif; ?>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
-                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +212,7 @@
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-slate-300 mb-2">Required Skills (Tags)</label>
                         <div class="input-field rounded-lg p-3 max-h-32 overflow-y-auto modal-scroll">
-                            
+
                             <?php if (isset($tags) && !empty($tags)): ?>
                                 <div class="grid grid-cols-2 gap-2">
                                     <?php foreach ($tags as $tag): ?>
@@ -246,7 +269,7 @@
 
             setTimeout(() => {
                 modal.classList.add('hidden');
-                jobForm.reset(); 
+                jobForm.reset();
             }, 300);
         }
 
@@ -260,6 +283,50 @@
                 closeModal();
             }
         });
+
+        // Search functionality with ajax
+        const searchInput = document.getElementById('searchInput');
+        const offersTable = document.getElementById('offersTable');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim();
+
+            fetch(`/Career_Link/recruiter/offers/search?q=${encodeURIComponent(query)}`)
+                .then(res => res.json())
+                .then(offers => {
+                    offersTable.innerHTML = '';
+
+                    if (offers.length === 0) {
+                        offersTable.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="px-6 py-4 text-slate-500 italic">
+                            No job offers found.
+                        </td>
+                    </tr>
+                `;
+                        return;
+                    }
+
+                    offers.forEach(offer => {
+                        offersTable.innerHTML += `
+                    <tr class="hover:bg-slate-800/30">
+                        <td class="px-6 py-4">
+                            <div class="font-medium text-white">${offer.title}</div>
+                            <div class="text-xs text-slate-500">$${offer.salary}/mo</div>
+                        </td>
+                        <td class="px-6 py-4 text-slate-400 text-sm text-center">
+                            ${offer.applications}
+                        </td>
+                        <td class="px-6 py-4 text-right space-x-2">
+                            <button class="text-slate-400 hover:text-white">Edit</button>
+                            <button class="text-red-400 hover:text-red-300">Archive</button>
+                        </td>
+                    </tr>
+                `;
+                    });
+                });
+        });
     </script>
 </body>
+
 </html>
